@@ -10,7 +10,7 @@ resource "aws_instance" "wb1" {
    instance_type = "t2.micro"
    key_name = "${aws_key_pair.default.id}"
    subnet_id = "${aws_subnet.web-public-subnet.id}"
-   vpc_security_groups_ids = ["${aws_security_group.sgweb.id}"]
+   vpc_security_group_ids = ["${aws_security_group.sgweb.id}"]
    associate_public_ip_address = true
    source_dest_check = false
 
@@ -24,7 +24,7 @@ resource "aws_instance" "wb2" {
   instance_type = "t2.micro"
   key_name = "${aws_key_pair.default.id}"
   subnet_id = "${aws_subnet.web-public-subnet.id}"
-  vpc_security_groups_ids = ["${aws_security_group.sgweb.id}"]
+  vpc_security_group_ids = ["${aws_security_group.sgweb.id}"]
   associate_public_ip_address = true
   source_dest_check = false
 
