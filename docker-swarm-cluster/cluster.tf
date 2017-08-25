@@ -1,5 +1,5 @@
 resource "aws_key_pair" "default"{
-  name = "clusterkp"
+  key_name = "clusterkp"
   public_key = "${file("${var.key_path}")}"
 }
 
