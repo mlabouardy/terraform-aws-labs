@@ -1,4 +1,4 @@
-# terraform-aws-labs
+# Terraform AWS Use cases
 Terraform template for AWS provider
 
 # How to use
