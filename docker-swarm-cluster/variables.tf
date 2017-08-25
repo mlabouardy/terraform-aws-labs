@@ -19,6 +19,6 @@ variable "key_path" {
 }
 
 variable "bootstrap_path" {
-  description = "SSH Public Key path"
+  description = "Script to install Docker Engine"
   default = "install-docker.sh"
 }
