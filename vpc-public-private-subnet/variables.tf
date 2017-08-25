@@ -20,7 +20,7 @@ variable "private_subnet_cidr" {
 
 variable "ami" {
   description = "AMI for EC2"
-  default = "ami-a4c7edb2"
+  default = "ami-4fffc834"
 }
 
 variable "key_path" {

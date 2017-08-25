@@ -62,7 +62,7 @@ resource "aws_route_table_association" "web-public-rt" {
 # Define the security group for public subnet
 resource "aws_security_group" "sgweb" {
   name = "vpc_test_web"
-  description = "Allow incoming HTTP connections"
+  description = "Allow incoming HTTP connections & SSH access"
 
   ingress {
     from_port = 80
@@ -85,6 +85,13 @@ resource "aws_security_group" "sgweb" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    from_port = 22
+    to_port = 22
+    protocol = "tcp"
+    cidr_blocks =  ["0.0.0.0/0"]
+  }
+
   vpc_id="${aws_vpc.default.id}"
 
   tags {
@@ -99,7 +106,7 @@ resource "aws_security_group" "sgdb"{
 
   ingress {
     from_port = 3306
-    to_port = 3006
+    to_port = 3306
     protocol = "tcp"
     cidr_blocks = ["${var.public_subnet_cidr}"]
   }
@@ -108,6 +115,13 @@ resource "aws_security_group" "sgdb"{
     from_port = -1
     to_port = -1
     protocol = "icmp"
+    cidr_blocks = ["${var.public_subnet_cidr}"]
+  }
+
+  ingress {
+    from_port = 22
+    to_port = 22
+    protocol = "tcp"
     cidr_blocks = ["${var.public_subnet_cidr}"]
   }
 
