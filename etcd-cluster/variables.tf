@@ -8,7 +8,7 @@ variable "ami" {
   default = "ami-38714c43"
 }
 
-variable "type_instance" {
+variable "instance_type" {
   description = "Instance type"
   default = "t1.micro"
 }
