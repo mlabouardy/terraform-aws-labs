@@ -1,0 +1,21 @@
+#cloud-config
+
+write_files:
+  - path: /tmp/done
+    owner: core:core
+    permissions: 0644
+    content: |
+      Cloud config has been provisionned
+
+coreos:
+  etcd2:
+    discovery: "https://discovery.etcd.io/b0d368f43a40eeb76b98efea9bb4055c"
+    advertise-client-urls: "http://{COREOS_PUBLIC_IPV4}:2379"
+    initial-advertise-peer-urls: "http://{COREOS_PUBLIC_IPV4}:2380"
+    listen-client-urls: "http://{COREOS_PUBLIC_IPV4}:2379,http://127.0.0.1:2379"
+    listen-peer-urls: "http://{COREOS_PUBLIC_IPV4}:2380"
+  update:
+    reboot-strategy: off
+  units:
+    - name: etcd2.service
+      command: start
