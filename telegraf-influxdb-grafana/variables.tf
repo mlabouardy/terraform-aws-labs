@@ -14,6 +14,11 @@ variable "instance_type" {
 }
 
 variable "key_path" {
-  description = "Public key path"
-  default = "/home/core/.ssh/id_rsa.pub"
+  description = "SSH key path"
+  default = "/home/core/.ssh/"
+}
+
+variable "bootstrap_script" {
+  description = "Shell script to install docker & compose"
+  default = "bootstrap.sh"
 }
