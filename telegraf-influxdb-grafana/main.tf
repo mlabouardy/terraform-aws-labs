@@ -42,4 +42,9 @@ resource "aws_instance" "default" {
   tags {
     Name = "athena"
   }
+
+  provisioner "file" {
+    source = "telegraf-influxdb-grafana/"
+    destination = "/home/ec2-user/"
+  }
 }
