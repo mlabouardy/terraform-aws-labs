@@ -1,0 +1,3 @@
+[submodule "telegraf-influxdb-grafana/telegraf-influxdb-grafana"]
+	path = telegraf-influxdb-grafana/telegraf-influxdb-grafana
+	url = https://github.com/mlabouardy/telegraf-influxdb-grafana.git
