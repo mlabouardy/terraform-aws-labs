@@ -29,7 +29,7 @@ resource "aws_security_group" "default"{
 
 resource "aws_key_pair" "default" {
   key_name = "metricskp"
-  key_path = "${file(${var.key_path})}"
+  public_key = "${file("${var.key_path}")}"
 }
 
 resource "aws_instance" "default" {
@@ -37,7 +37,7 @@ resource "aws_instance" "default" {
   instance_type = "${var.instance_type}"
   key_name = "${aws_key_pair.default.id}"
   vpc_security_group_ids = ["${aws_security_group.default.id}"]
-  user_data = "${file("bootstrap.sh")}" 
+  user_data = "${file("bootstrap.sh")}"
 
   tags {
     Name = "athena"
