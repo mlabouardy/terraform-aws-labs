@@ -5,7 +5,7 @@ variable "region" {
 
 variable "ami" {
   description = "Amazon Linux Image"
-  default = ""
+  default = "ami-4fffc834"
 }
 
 variable "instance_type" {
