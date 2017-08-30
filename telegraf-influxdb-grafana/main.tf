@@ -36,7 +36,7 @@ resource "aws_instance" "default" {
   ami = "${var.ami}"
   instance_type = "${var.instance_type}"
   key_name = "${aws_key_pair.default.id}"
-  vpc_security_group_ids = ["${aws_security_group.default.id}"]
+  security_groups = ["${aws_security_group.default.id}"]
   user_data = "${file("bootstrap.sh")}"
 
   tags {
