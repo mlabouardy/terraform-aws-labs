@@ -5,7 +5,7 @@ variable "region" {
 
 variable "key_path" {
   description = "Public key path"
-  default = "/home/.ssh/id_rsa.pub"
+  default = "/root/.ssh/id_rsa.pub"
 }
 
 variable "ami" {

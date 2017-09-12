@@ -38,9 +38,9 @@ resource "aws_instance" "default" {
   instance_type = "${var.instance_type}"
   key_name = "${aws_key_pair.default.id}"
   security_groups = ["${aws_security_group.default.name}"]
-  user_data = "${file("boostrap-server-${count.index}.sh")}"
+  user_data = "${file("bootstrap-server${count.index+1}.sh")}"
 
   tags {
-    Name = "server${count.index}"
+    Name = "server${count.index+1}"
   }
 }
