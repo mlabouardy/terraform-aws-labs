@@ -2,8 +2,8 @@ provider "aws" {
   region = "${var.region}"
 }
 
-resource "aws_security_group" "default"{
-  name = "metricssg"
+resource "aws_security_group" "default" {
+  name = "ec2-elb-sg"
 
   ingress {
     from_port = 0
@@ -28,29 +28,19 @@ resource "aws_security_group" "default"{
 }
 
 resource "aws_key_pair" "default" {
-  key_name = "metricskp"
-  public_key = "${file("${var.key_path}/id_rsa.pub")}"
+  key_name = "ec2-elb-key"
+  public_key = "${file("${var.key_path}")}"
 }
 
 resource "aws_instance" "default" {
+  count = 2
   ami = "${var.ami}"
   instance_type = "${var.instance_type}"
   key_name = "${aws_key_pair.default.id}"
   security_groups = ["${aws_security_group.default.name}"]
-  user_data = "${file("${var.bootstrap_script}")}"
+  user_data = "${file("boostrap-server-${count.index}.sh")}"
 
   tags {
-    Name = "athena"
-  }
-
-  provisioner "file" {
-    source = "telegraf-influxdb-grafana/"
-    destination = "/home/ec2-user/"
-
-    connection {
-       type = "ssh"
-       user = "ec2-user"
-       private_key = "${file("${var.key_path}/id_rsa")}"
-    }
+    Name = "server${count.index}"
   }
 }
