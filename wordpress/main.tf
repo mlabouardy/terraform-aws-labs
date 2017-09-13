@@ -77,8 +77,8 @@ resource "aws_security_group" "wpsg" {
 
   egress {
     from_port = 0
-    to_port = 0
-    protocol = "all"
+    to_port = 65535
+    protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -125,7 +125,7 @@ resource "aws_instance" "default" {
 resource "aws_db_instance" "default" {
   name = "${var.db_name}"
   engine = "${var.engine}"
-  engine_version = "5.6.17"
+  engine_version = "5.6.35"
   storage_type = "gp2"
   allocated_storage = 5
   instance_class = "db.t1.micro"
