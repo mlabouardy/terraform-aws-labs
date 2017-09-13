@@ -148,7 +148,7 @@ resource "aws_instance" "default" {
   }
 }
 
-resouce "aws_db_subnet_group" "default" {
+resource "aws_db_subnet_group" "default" {
     name = "db-subnet-group"
     description = "RDS Subnet Group"
     subnet_ids = ["${aws_subnet.private-subnet.id}"]
