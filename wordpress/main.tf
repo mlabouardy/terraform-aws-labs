@@ -78,13 +78,37 @@ resource "aws_security_group" "wpsg" {
 
   egress {
     from_port = 0
-    to_port = 65535
-    protocol = "tcp"
+    to_port = 0
+    protocol = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags {
     Name = "Blog Security Group"
+  }
+}
+
+resource "aws_security_group" "elbsg" {
+  name = "elbsg"
+  description = "Allow Incoming HTTP traffic"
+  vpc_id = "${aws_vpc.default.id}"
+
+  ingress {
+    from_port = 80
+    to_port = 80
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags {
+    Name = "ELB Security Group"
   }
 }
 
@@ -139,7 +163,12 @@ resource "aws_db_instance" "default" {
 resource "aws_elb" "default" {
   name = "elbwp"
   instances = ["${aws_instance.default.id}"]
-  availability_zones = ["us-east-1a", "us-east-1b", "us-east-1c"]
+  subnets = ["${aws_subnet.public-subnet.id}"]
+  security_groups = ["${aws_security_group.elbsg.id}"]
+  cross_zone_load_balancing   = true
+  idle_timeout                = 400
+  connection_draining         = true
+  connection_draining_timeout = 400
 
   listener {
     instance_port = 80

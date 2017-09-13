@@ -1,5 +1,5 @@
-output "Blog_Public_IP" {
-  value = "${aws_instance.default.public_ip}"
+output "ELB_DNS" {
+  value = "${aws_elb.default.dns_name}"
 }
 
 output "Blog_DNS" {
@@ -7,5 +7,5 @@ output "Blog_DNS" {
 }
 
 output "MYSQL_DNS" {
-  value = "${aws_db_instance.default.public_dns}"
+  value = "${aws_db_instance.default.dns_name}"
 }
