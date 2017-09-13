@@ -4,27 +4,27 @@ variable "region" {
 }
 
 variable "vpc_cidr_block" {
-  descritpion = "VPC CIDR"
+  description = "VPC CIDR"
   default = "10.0.0.0/16"
 }
 
 variable "public_subnet_cidr_block" {
-  descritpion = "Public Subnet CIDR"
+  description = "Public Subnet CIDR"
   default = "10.0.1.0/24"
 }
 
 variable "private_subnet_cidr_block" {
-  descritpion = "Private Subnet CIDR"
+  description = "Private Subnet CIDR"
   default = "10.0.2.0/24"
 }
 
 variable "public_subnet_az" {
-  descritpion = "Public Subnet Availability Zone"
+  description = "Public Subnet Availability Zone"
   default = "us-east-1a"
 }
 
 variable "private_subnet_az" {
-  descritpion = "Private Subnet Availability Zone"
+  description = "Private Subnet Availability Zone"
   default = "us-east-1b"
 }
 
