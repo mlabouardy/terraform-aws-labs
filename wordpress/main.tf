@@ -60,6 +60,7 @@ resource "aws_route_table_association" "default" {
 resource "aws_security_group" "wpsg" {
   name = "wpsg"
   description = "Allow Incoming HTTP traffic"
+  vpc_id = "${aws_vpc.default.id}"
 
   ingress {
     from_port = 80
@@ -90,12 +91,13 @@ resource "aws_security_group" "wpsg" {
 resource "aws_security_group" "dbsg" {
   name = "dbsg"
   description = "Allow access to MySQL from WP"
+  vpc_id = "${aws_vpc.default.id}"
 
   ingress {
     from_port = 3306
     to_port = 3306
     protocol = "tcp"
-    cidr_blocks = ["${aws_security_group.wpsg.id}"]
+    security_groups = ["${aws_security_group.wpsg.id}"]
   }
 
   tags {
