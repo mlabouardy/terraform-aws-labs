@@ -31,7 +31,7 @@ resource "aws_subnet" "private-subnet" {
   }
 }
 
-resouce "aws_internet_gateway" "igw" {
+resource "aws_internet_gateway" "igw" {
   vpc_id = "${aws_vpc.default.id}"
 
   tags {
