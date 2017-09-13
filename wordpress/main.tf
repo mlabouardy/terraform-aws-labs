@@ -4,7 +4,7 @@ provider "aws" {
 
 resource "aws_vpc" "default" {
   cidr_block = "${var.vpc_cidr_block}"
-  enable_dns_hostname = true
+  enable_dns_hostnames = true
 
   tags {
     Name = "vpc-blog"
@@ -125,7 +125,7 @@ resource "aws_instance" "default" {
 resource "aws_db_instance" "default" {
   name = "${var.db_name}"
   engine = "${var.engine}"
-  version = "5.6.17"
+  engine_version = "5.6.17"
   storage_type = "gp2"
   allocated_storage = 5
   instance_class = "db.t1.micro"
