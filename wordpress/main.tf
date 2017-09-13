@@ -148,6 +148,16 @@ resource "aws_instance" "default" {
   }
 }
 
+resouce "aws_db_subnet_group" "default" {
+    name = "db-subnet-group"
+    description = "RDS Subnet Group"
+    subnet_ids = ["${aws_subnet.private-subnet.id}"]
+
+    tags {
+      Name = "DB Subnet Group"
+    }
+}
+
 resource "aws_db_instance" "default" {
   name = "${var.db_name}"
   engine = "${var.engine}"
@@ -157,7 +167,8 @@ resource "aws_db_instance" "default" {
   instance_class = "db.t1.micro"
   username = "${var.db_username}"
   password = "${var.db_password}"
-  db_subnet_group_name = "${aws_subnet.private-subnet.id}"
+  vpc_security_group_ids = ["${aws_security_group.dbsg.id}"]
+  db_subnet_group_name = "${aws_db_subnet_group.default.id}"
 }
 
 resource "aws_elb" "default" {
