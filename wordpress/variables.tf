@@ -30,7 +30,6 @@ variable "private_subnet_az" {
 
 variable "key_path" {
   description = "Public Key path"
-  default = "/home/core/.ssh/id_rsa.pub"
 }
 
 variable "ami" {
