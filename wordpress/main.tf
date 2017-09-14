@@ -11,13 +11,23 @@ resource "aws_vpc" "default" {
   }
 }
 
-resource "aws_subnet" "public-subnet" {
-  cidr_block = "${var.public_subnet_cidr_block}"
+resource "aws_subnet" "public-subnet1" {
+  cidr_block = "${var.public_subnet1_cidr_block}"
   vpc_id = "${aws_vpc.default.id}"
-  availability_zone = "${var.public_subnet_az}"
+  availability_zone = "${var.public_subnet1_az}"
 
   tags {
-    Name = "WP Public Subnet"
+    Name = "public-subnet-${var.public_subnet1_az}"
+  }
+}
+
+resource "aws_subnet" "public-subnet2" {
+  cidr_block = "${var.public_subnet2_cidr_block}"
+  vpc_id = "${aws_vpc.default.id}"
+  availability_zone = "${var.public_subnet2_az}"
+
+  tags {
+    Name = "public-subnet-${var.public_subnet2_az}"
   }
 }
 
@@ -27,7 +37,7 @@ resource "aws_subnet" "private-subnet1" {
   availability_zone = "${var.private_subnet1_az}"
 
   tags {
-    Name = "DB Private Subnet 1"
+    Name = "private-subnet-${var.private_subnet1_az}"
   }
 }
 
@@ -37,7 +47,7 @@ resource "aws_subnet" "private-subnet2" {
   availability_zone = "${var.private_subnet2_az}"
 
   tags {
-    Name = "DB Private Subnet 2"
+    Name = "private-subnet-${var.private_subnet2_az}"
   }
 }
 
@@ -62,8 +72,13 @@ resource "aws_route_table" "default" {
   }
 }
 
-resource "aws_route_table_association" "default" {
-  subnet_id = "${aws_subnet.public-subnet.id}"
+resource "aws_route_table_association" "rt-asso-public-subnet1" {
+  subnet_id = "${aws_subnet.public-subnet1.id}"
+  route_table_id = "${aws_route_table.default.id}"
+}
+
+resource "aws_route_table_association" "rt-asso-public-subnet2" {
+  subnet_id = "${aws_subnet.public-subnet2.id}"
   route_table_id = "${aws_route_table.default.id}"
 }
 
@@ -94,7 +109,7 @@ resource "aws_security_group" "wpsg" {
   }
 
   tags {
-    Name = "Blog Security Group"
+    Name = "blog-security-group"
   }
 }
 
@@ -118,7 +133,7 @@ resource "aws_security_group" "elbsg" {
   }
 
   tags {
-    Name = "ELB Security Group"
+    Name = "elb-security-group"
   }
 }
 
@@ -135,7 +150,7 @@ resource "aws_security_group" "dbsg" {
   }
 
   tags {
-    Name = "DB Security Group"
+    Name = "db-security-group"
   }
 }
 
@@ -144,17 +159,31 @@ resource "aws_key_pair" "default" {
   public_key = "${file("${var.key_path}")}"
 }
 
-resource "aws_instance" "default" {
+resource "aws_instance" "wb1" {
   ami = "${var.ami}"
   instance_type = "${var.instance_type}"
   key_name = "${aws_key_pair.default.id}"
   user_data = "${file("bootstrap.sh")}"
   vpc_security_group_ids = ["${aws_security_group.wpsg.id}"]
-  subnet_id = "${aws_subnet.public-subnet.id}"
+  subnet_id = "${aws_subnet.public-subnet1.id}"
   associate_public_ip_address = true
 
   tags {
-    Name = "wordpress"
+    Name = "wordpress-${var.public_subnet1_az}"
+  }
+}
+
+resource "aws_instance" "wb2" {
+  ami = "${var.ami}"
+  instance_type = "${var.instance_type}"
+  key_name = "${aws_key_pair.default.id}"
+  user_data = "${file("bootstrap.sh")}"
+  vpc_security_group_ids = ["${aws_security_group.wpsg.id}"]
+  subnet_id = "${aws_subnet.public-subnet2.id}"
+  associate_public_ip_address = true
+
+  tags {
+    Name = "wordpress-${var.public_subnet2_az}"
   }
 }
 
@@ -183,8 +212,8 @@ resource "aws_db_instance" "default" {
 
 resource "aws_elb" "default" {
   name = "elbwp"
-  instances = ["${aws_instance.default.id}"]
-  subnets = ["${aws_subnet.public-subnet.id}"]
+  instances = ["${aws_instance.wb1.id}", "${aws_instance.wb2.id}"]
+  subnets = ["${aws_subnet.public-subnet1.id}", "${aws_subnet.public-subnet2.id}"]
   security_groups = ["${aws_security_group.elbsg.id}"]
   cross_zone_load_balancing   = true
   idle_timeout                = 400
