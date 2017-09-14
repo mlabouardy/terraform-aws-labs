@@ -13,9 +13,14 @@ variable "public_subnet_cidr_block" {
   default = "10.0.1.0/24"
 }
 
-variable "private_subnet_cidr_block" {
-  description = "Private Subnet CIDR"
+variable "private_subnet1_cidr_block" {
+  description = "Private Subnet 1 CIDR"
   default = "10.0.2.0/24"
+}
+
+variable "private_subnet2_cidr_block" {
+  description = "Private Subnet 2 CIDR"
+  default = "10.0.3.0/24"
 }
 
 variable "public_subnet_az" {
@@ -23,9 +28,14 @@ variable "public_subnet_az" {
   default = "us-east-1a"
 }
 
-variable "private_subnet_az" {
+variable "private_subnet1_az" {
   description = "Private Subnet Availability Zone"
   default = "us-east-1b"
+}
+
+variable "private_subnet2_az" {
+  description = "Private Subnet 2 Availability Zone"
+  default = "us-east-1c"
 }
 
 variable "key_path" {

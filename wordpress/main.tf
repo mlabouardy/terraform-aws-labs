@@ -21,13 +21,23 @@ resource "aws_subnet" "public-subnet" {
   }
 }
 
-resource "aws_subnet" "private-subnet" {
-  cidr_block = "${var.private_subnet_cidr_block}"
+resource "aws_subnet" "private-subnet1" {
+  cidr_block = "${var.private_subnet1_cidr_block}"
   vpc_id = "${aws_vpc.default.id}"
-  availability_zone = "${var.private_subnet_az}"
+  availability_zone = "${var.private_subnet1_az}"
 
   tags {
-    Name = "DB Private Subnet"
+    Name = "DB Private Subnet 1"
+  }
+}
+
+resource "aws_subnet" "private-subnet2" {
+  cidr_block = "${var.private_subnet2_cidr_block}"
+  vpc_id = "${aws_vpc.default.id}"
+  availability_zone = "${var.private_subnet2_az}"
+
+  tags {
+    Name = "DB Private Subnet 2"
   }
 }
 
@@ -151,7 +161,7 @@ resource "aws_instance" "default" {
 resource "aws_db_subnet_group" "default" {
     name = "db-subnet-group"
     description = "RDS Subnet Group"
-    subnet_ids = ["${aws_subnet.private-subnet.id}"]
+    subnet_ids = ["${aws_subnet.private-subnet1.id}", "${aws_subnet.private-subnet2.id}"]
 
     tags {
       Name = "DB Subnet Group"
