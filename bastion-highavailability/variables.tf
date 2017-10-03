@@ -24,7 +24,8 @@ variable "us_east_1a_private_cidr" {
 }
 
 variable "availability_zones" {
-  default = "Availability Zones by CIDR" {
+  description = "Availability Zones by CIDR" 
+  default = {
     "${var.us_east_1a_public_cidr}" : "us-east-1a"
     "${var.us_east_1b_public_cidr}" : "us-east-1b"
     "${var.us_east_1a_private_cidr}" : "us-east-1a"
