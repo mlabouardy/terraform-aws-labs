@@ -1,4 +1,4 @@
-resource "aws_route53_record" "bastion.slowcoder" {
+resource "aws_route53_record" "bastion-slowcoder" {
   zone_id = "${var.zone_id}"
   name = "bastion.slowcoder.com"
   type = "A"
