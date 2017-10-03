@@ -3,5 +3,5 @@ resource "aws_route53_record" "bastion.slowcoder" {
   name = "bastion.slowcoder.com"
   type = "A"
   ttl = "330"
-  records = ["${aws_eip.bastion-1a.public_ip}", "${aws_eip.bastion-1b.public_ip}"]
+  records = ["${aws_eip.bastion-1a-eip.public_ip}", "${aws_eip.bastion-1b-eip.public_ip}"]
 }
