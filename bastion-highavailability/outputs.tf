@@ -1,9 +1,9 @@
 output "BASTION-1" {
-  value = "${aws_eip.bastion-1a.public_ip}"
+  value = "${aws_eip.bastion-1a-eip.public_ip}"
 }
 
 output "BASTION-2" {
-  value = "${aws_eip.bastion-1b.public_ip}"
+  value = "${aws_eip.bastion-1b-eip.public_ip}"
 }
 
 output "PRIVATE-EC2" {
