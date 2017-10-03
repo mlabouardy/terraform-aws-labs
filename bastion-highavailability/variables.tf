@@ -34,7 +34,7 @@ variable "availability_zones" {
 variable "amis" {
   description = "AMIs by region"
   default = {
-    us-east-1 = "ami-"
+    us-east-1 = "ami-4fffc834"
   }
 }
 
