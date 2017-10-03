@@ -27,15 +27,17 @@ variable "us_east_1a_private_cidr" {
 }
 
 variable "availability_zones" {
+  type = "map"
   description = "Availability Zones by CIDR"
   default = {
-    "${var.us_east_1a_public_cidr}" = "us-east-1a"
-    "${var.us_east_1b_public_cidr}" = "us-east-1b"
-    "${var.us_east_1a_private_cidr}" = "us-east-1a"
+    "10.0.1.0/24" = "us-east-1a"
+    "10.0.2.0/24" = "us-east-1b"
+    "10.0.3.0/24" = "us-east-1a"
   }
 }
 
 variable "amis" {
+  type = "map"
   description = "AMIs by region"
   default = {
     us-east-1 = "ami-4fffc834"
