@@ -16,3 +16,4 @@ $ export AWS_SECRET_ACCESS_KEY="YOUR SECRET ACCESS KEY"
 * <a href="http://www.labouardy.com/setup-docker-swarm-on-aws-using-ansible-terraform/">Setup Docker Swarm on AWS using Ansible & Terraform</a>
 * <a href="http://www.labouardy.com/manage-aws-vpc-as-infrastructure-as-code-with-terraform/">Manage AWS VPC as Infrastructure as Code with Terraform</a>
 * <a href="http://www.labouardy.com/manage-aws-infrastracture-as-code-with-terraform/" >Manage AWS Infrastracture as Code with Terraform</a>
+* <a href="http://www.blog.labouardy.com/setup-high-availability-bastion-hosts-with-route53/">Highly Available Bastion Hosts with Route53</a>
