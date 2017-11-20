@@ -1,0 +1,8 @@
+---
+- name: Setup TICK Stack
+  hosts: servers
+  remote_user: "{{remote_user}}"
+  become: yes
+  become_method: sudo
+  roles:
+    - mlabouardy.tick
