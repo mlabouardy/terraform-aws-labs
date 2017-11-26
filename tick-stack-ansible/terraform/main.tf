@@ -1,7 +1,7 @@
 provider "aws" {
   region = "${var.region}"
   access_key = "${var.access_key}"
-  secret_key = "${var.secrey_key}"
+  secret_key = "${var.secret_key}"
 }
 
 
@@ -55,7 +55,7 @@ module "tick_stack" {
 
   key_name = "${var.key_name}"
   instance_type = "${var.instance_type}"
-  vpc_security_groups_ids = ["${module.tick_sg.this_security_group_id}"]
+  vpc_security_group_ids = ["${module.tick_sg.this_security_group_id}"]
 
   tags {
     Name = "${var.hostname}"
