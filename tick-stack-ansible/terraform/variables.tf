@@ -24,8 +24,8 @@ variable "hostname" {
 }
 
 variable "ami" {
-  description = "Amazon Linux Image"
-  default = "ami-55ef662f"
+  description = "Ubuntu Server 16.04 LTS"
+  default = "ami-da05a4a0"
 }
 
 variable "instance_type" {
