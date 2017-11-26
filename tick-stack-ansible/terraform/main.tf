@@ -21,6 +21,13 @@ module "tick_sg" {
       cidr_blocks = "0.0.0.0/0"
     },
     {
+      from_port   = 8086
+      to_port     = 8086
+      protocol    = "tcp"
+      description = "InfluxDB API"
+      cidr_blocks = "0.0.0.0/0"
+    },
+    {
       from_port   = 8888
       to_port     = 8888
       protocol    = "tcp"
