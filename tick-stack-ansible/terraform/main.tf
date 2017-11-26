@@ -5,24 +5,56 @@ provider "aws" {
 }
 
 
-module "tick-sg" {
+module "tick_sg" {
   source = "github.com/terraform-aws-modules/terraform-aws-security-group"
-  
+
   name = "${var.sg_name}"
   description = "${var.sg_description}"
 
-  
+  ingress_with_cidr_blocks = [
+    {
+      from_port   = 8083
+      to_port     = 8083
+      protocol    = "tcp"
+      description = "InfluxDB admin dashboard"
+      cidr_blocks = "0.0.0.0/0"
+    },
+    {
+      from_port   = 8888
+      to_port     = 8888
+      protocol    = "tcp"
+      description = "Chronograf Dashboard"
+      cidr_blocks = "0.0.0.0/0"
+    },
+    {
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      description = "SSH access"
+      cidr_blocks = "0.0.0.0/0"
+    },
+  ]
+
+  egress_with_cidr_blocks = [
+    {
+      from_port   = 0
+      to_port     = 65535
+      protocol    = "tcp"
+      description = "Allow all outbound traffic"
+      cidr_blocks = "0.0.0.0/0"
+    },
+  ]
 }
 
-module "tick-stack" {
+module "tick_stack" {
   source = "github.com/terraform-aws-modules/terraform-aws-ec2-instance"
-  
+
   name = "${var.hostname}"
   ami = "${var.ami}"
-  
+
   key_name = "${var.key_name}"
   instance_type = "${var.instance_type}"
-  vpc_security_groups_ids = [""]
+  vpc_security_groups_ids = ["${module.tick_sg.this_security_group_id}"]
 
   tags {
     Name = "${var.hostname}"
