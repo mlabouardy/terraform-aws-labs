@@ -1,9 +1,9 @@
 variable "region" {
-  descritpion = "AWS Region"
+  description = "AWS Region"
 }
 
 variables "access_key" {
-  descritpion = "AWS Access Key ID"
+  description = "AWS Access Key ID"
 }
 
 variables "secret_key" {
