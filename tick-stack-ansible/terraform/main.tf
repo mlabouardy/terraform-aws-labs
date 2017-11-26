@@ -10,6 +10,7 @@ module "tick_sg" {
 
   name = "${var.sg_name}"
   description = "${var.sg_description}"
+  vpc_id = "${var.vpc_id}"
 
   ingress_with_cidr_blocks = [
     {

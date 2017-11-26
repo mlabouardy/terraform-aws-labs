@@ -2,16 +2,20 @@ variable "region" {
   description = "AWS Region"
 }
 
-variables "access_key" {
+variable "access_key" {
   description = "AWS Access Key ID"
 }
 
-variables "secret_key" {
+variable "secret_key" {
   description = "AWS Secret Key"
 }
 
 variable "key_name" {
   description = "SSH KeyPair"
+}
+
+variable "vpc_id" {
+  description = "ID of the VPC where to create security group"
 }
 
 variable "hostname" {
