@@ -2,9 +2,10 @@ variable "region" {}
 variable "secret_key" {}
 variable "access_key" {}
 variable "ssh_public_key" {}
+variable "dns_zone_id" {}
 
 variable "instance_type" {
-  default = "t2.micro"
+  default = "t2.medium"
 }
 
 variable "amis" {
@@ -18,4 +19,8 @@ variable "amis" {
     "eu-west-1"  = "ami-1a962263"
     "ap-south-1" = "ami-d5c18eba"
   }
+}
+
+variable "dns_name" {
+  default = "registry.slowcoder.com"
 }
