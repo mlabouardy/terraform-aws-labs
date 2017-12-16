@@ -51,23 +51,6 @@ resource "aws_eip" "default" {
   vpc      = true
 }
 
-data "template_file" "default" {
-  template = <<EOF
-  yum update
-  yum install -y docker
-  service docker start
-  usermod -aG docker ec2-user
-  echo "{"insecure-registries" : ["${var.dns_name}:5000"]}" >> /etc/docker/daemon.json
-  service docker restart
-  docker swarm init
-  docker service create --replicas 1 --name registry --publish 5000:5000 --publish 8081:8081 sonatype/nexus3:3.6.2
-EOF
-
-  vars {
-    dns_name = "${var.dns_name}"
-  }
-}
-
 resource "aws_instance" "default" {
   ami             = "${lookup(var.amis, var.region)}"
   instance_type   = "${var.instance_type}"
@@ -75,8 +58,6 @@ resource "aws_instance" "default" {
   security_groups = ["${aws_security_group.default.name}"]
 
   user_data = "${file("setup.sh")}"
-
-  user_data = "${data.template_file.default.rendered}"
 
   tags {
     Name = "registry"
